@@ -1,3 +1,6 @@
+let totalClicks = 0;
+let maxClicks = 5;
+
 // write a contructor function, that accepts 2 parameters:
 // name
 // src
@@ -89,9 +92,12 @@ function renderImages() {
   img1.alt = Product.allProducts[index1].name;
   img2.alt = Product.allProducts[index2].name;
   img3.alt = Product.allProducts[index3].name;
-}
 
-renderImages();
+  // increase the views for the three products we are looking at
+  Product.allProducts[index1].views++;
+  Product.allProducts[index2].views++;
+  Product.allProducts[index3].views++;
+}
 
 // increase the clicks on the clicked Product object (for loop and clicks++)(check the event.target.alt)
 // make sure the user is clicking on one of the images
@@ -110,9 +116,26 @@ function handleClick(event) {
     }
   }
 
+  // each time we click we need to increase totalClicks
+  // we need to check if we've reached the maximum number of clicks allowed
+  // if we have, don't render more images, and remove the eventlistener on the image container
+  // we we haven't, render more images
+  totalClicks++;
+  console.log(totalClicks);
+  if (totalClicks === maxClicks) {
+    alert("Thank you for voting!");
+    imgContainer.removeEventListener("click", handleClick);
+    return; // end the function
+  }
+
   // get three new images
   renderImages();
 }
 
 const imgContainer = document.getElementById("img-container");
 imgContainer.addEventListener("click", handleClick);
+
+// render a chart BUT NOT YET DON'T ATTEMPT
+
+// render the inital images
+renderImages();
