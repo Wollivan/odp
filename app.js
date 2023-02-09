@@ -143,14 +143,28 @@ imgContainer.addEventListener("click", handleClick);
 // include the script I sent in your html
 // for now, just show dummy data
 function renderChart() {
-  const theChart = document.getElementById("chart");
+  const myChart = document.getElementById("chart");
+  let labels = [];
+  let viewsData = [];
+  let clicksData = [];
+
+  for (let i = 0; i < Product.allProducts.length; i++) {
+    labels.push(Product.allProducts[i].name);
+    viewsData.push(Product.allProducts[i].views);
+    clicksData.push(Product.allProducts[i].clicks);
+  }
 
   const data = {
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+    labels: labels,
     datasets: [
       {
+        label: "# of Views",
+        data: viewsData,
+        borderWidth: 1,
+      },
+      {
         label: "# of Votes",
-        data: [12, 19, 3, 5, 2, 3],
+        data: clicksData,
         borderWidth: 1,
       },
     ],
@@ -158,15 +172,8 @@ function renderChart() {
   const config = {
     type: "bar",
     data: data,
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-        },
-      },
-    },
   };
-  new Chart(theChart, config);
+  new Chart(myChart, config);
 }
 
 // render the inital images
