@@ -121,10 +121,10 @@ function handleClick(event) {
   // if we have, don't render more images, and remove the eventlistener on the image container
   // we we haven't, render more images
   totalClicks++;
-  console.log(totalClicks);
   if (totalClicks === maxClicks) {
     alert("Thank you for voting!");
     imgContainer.removeEventListener("click", handleClick);
+    renderChart();
     return; // end the function
   }
 
@@ -135,7 +135,39 @@ function handleClick(event) {
 const imgContainer = document.getElementById("img-container");
 imgContainer.addEventListener("click", handleClick);
 
-// render a chart BUT NOT YET DON'T ATTEMPT
+// render a chart
+// using chartJS
+// have a chart display in the section undeneath the img-container
+// use a canvas tag with an id
+// use the demo chart from the chartjs docs
+// include the script I sent in your html
+// for now, just show dummy data
+function renderChart() {
+  const theChart = document.getElementById("chart");
+
+  const data = {
+    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+    datasets: [
+      {
+        label: "# of Votes",
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1,
+      },
+    ],
+  };
+  const config = {
+    type: "bar",
+    data: data,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  };
+  new Chart(theChart, config);
+}
 
 // render the inital images
 renderImages();
